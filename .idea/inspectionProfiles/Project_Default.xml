@@ -1,0 +1,43 @@
+<component name="InspectionProjectProfileManager">
+  <profile version="1.0">
+    <option name="myName" value="Project Default" />
+    <inspection_tool class="PyPackageRequirementsInspection" enabled="true" level="WARNING" enabled_by_default="true">
+      <option name="ignoredPackages">
+        <value>
+          <list size="2">
+            <item index="0" class="java.lang.String" itemvalue="Pillow" />
+            <item index="1" class="java.lang.String" itemvalue="pygame" />
+          </list>
+        </value>
+      </option>
+    </inspection_tool>
+    <inspection_tool class="PyPep8Inspection" enabled="true" level="WEAK WARNING" enabled_by_default="true">
+      <option name="ignoredErrors">
+        <list>
+          <option value="E261" />
+        </list>
+      </option>
+    </inspection_tool>
+    <inspection_tool class="PyUnresolvedReferencesInspection" enabled="true" level="WARNING" enabled_by_default="true">
+      <option name="ignoredIdentifiers">
+        <list>
+          <option value="int.direction" />
+          <option value="list.add_neighbor" />
+          <option value="pygame.image" />
+          <option value="pygame.transform" />
+          <option value="pygame.mask" />
+          <option value="pygame.mouse" />
+          <option value="pygame.draw" />
+          <option value="pygame.K_w" />
+          <option value="pygame.K_s" />
+          <option value="pygame.K_a" />
+          <option value="pygame.K_d" />
+          <option value="pygame.key" />
+          <option value="pygame.math" />
+          <option value="list.discovered" />
+          <option value="list.type" />
+        </list>
+      </option>
+    </inspection_tool>
+  </profile>
+</component>
