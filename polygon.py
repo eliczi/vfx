@@ -70,7 +70,7 @@ class Polygon:
         self.decay_factor -= 0.008
 
     def update_speed(self):
-        self.speed -= 0.02
+        self.speed -= 0.04
         if self.speed <= 0:
             self.alive = False
 

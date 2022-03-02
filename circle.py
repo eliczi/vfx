@@ -11,7 +11,7 @@ class Circle:
         self.mini_radius = 1
         self.max_radius = random.randint(50, 75)
         self.alive = True
-        self.speed = 1
+        self.speed = 1.5
 
     def draw(self, surface):
         if self.alive:

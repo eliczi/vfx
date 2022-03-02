@@ -20,10 +20,10 @@ class Line:
         self.speed = random.randint(1, 3)
         self.factor = random.choice([-1, 1])
         self.calculate_direction()
-        self.decay_factor = 0.05
+        self.decay_factor = 0.07
         self.delta = 0.008 * 25
 
-    
+
     def create_polygon(self):  # it's a mess
         x = self.center[0] + self.length * math.cos(math.radians(self.angle))
         y = self.center[1] + self.length * math.sin(math.radians(self.angle))
@@ -50,7 +50,6 @@ class Line:
         self.dir.scale_to_length(self.speed)
         self.dir = self.dir * self.factor
 
-
     def draw(self, surface):
         if self.alive:
             pygame.draw.polygon(surface, self.color, self.points, width=0)
@@ -73,7 +72,7 @@ class Line:
         self.decay_factor -= 0.008
 
     def update_speed(self):
-        self.speed -= 0.02
+        self.speed -= 0.03
         if self.speed <= 0:
             self.alive = False
 
@@ -82,4 +81,4 @@ class Line:
         self.update_position()
         self.update_speed()
         self.calculate_direction()
-        # self.update_decay_factor()
+        #self.update_decay_factor()
