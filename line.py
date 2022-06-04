@@ -1,8 +1,8 @@
 import random
 import pygame
-from polygon import Polygon
 import math
 from pygame.math import Vector2
+
 
 class Line:
     alpha = 255
@@ -11,7 +11,7 @@ class Line:
     def __init__(self, center):
         self.points = [[], [], [], []]  # 4 points
         self.center = [point / 4 for point in center]  # center of polygon
-        self.length = random.randint(75,100)  # longer diagonal
+        self.length = random.randint(75, 100)  # longer diagonal
         self.angle = random.randint(-180, 180)
         self.perpendicular_straight = random.randint(2, 3)  # shorter diagonal
         self.create_polygon()
@@ -22,7 +22,6 @@ class Line:
         self.calculate_direction()
         self.decay_factor = 0.07
         self.delta = 0.008 * 25
-
 
     def create_polygon(self):  # it's a mess
         x = self.center[0] + self.length * math.cos(math.radians(self.angle))
@@ -38,10 +37,8 @@ class Line:
         B.normalize_ip()
         x, y = Vector2(x3, y3) + self.perpendicular_straight * B
         self.points[2] = Vector2([x, y])
-        # self.points[2] = Vector2([x + random.randint(1, 3), y + random.randint(1, 3)])
         x, y = Vector2(x3, y3) - self.perpendicular_straight * B
         self.points[3] = Vector2([x, y])
-        # self.points[3] = Vector2([x + random.randint(1, 3), y + random.randint(1, 3)])
         self.points[1], self.points[2] = self.points[2], self.points[1]
 
     def calculate_direction(self):
@@ -81,4 +78,4 @@ class Line:
         self.update_position()
         self.update_speed()
         self.calculate_direction()
-        #self.update_decay_factor()
+        # self.update_decay_factor()

@@ -41,6 +41,6 @@ class Smoke:
             self.position[0] += self.direction[0] * dt * self.speed * self.spread + self.wind
             self.position[1] += self.direction[1] * dt * self.speed * self.rise
             self.radius -= self.rate_of_shrinkage * dt
-            #change rate of shrinkage
+            # change rate of shrinkage
             if self.radius <= 1:
                 self.alive = False

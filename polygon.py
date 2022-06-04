@@ -1,5 +1,4 @@
 import random
-
 import pygame
 from pygame.math import Vector2
 import math
@@ -37,10 +36,8 @@ class Polygon:
         B.normalize_ip()
         x, y = Vector2(x3, y3) + self.perpendicular_straight * B
         self.points[2] = Vector2([x, y])
-        # self.points[2] = Vector2([x + random.randint(1, 3), y + random.randint(1, 3)])
         x, y = Vector2(x3, y3) - self.perpendicular_straight * B
         self.points[3] = Vector2([x, y])
-        # self.points[3] = Vector2([x + random.randint(1, 3), y + random.randint(1, 3)])
         self.points[1], self.points[2] = self.points[2], self.points[1]
 
     def calculate_direction(self):
@@ -67,7 +64,7 @@ class Polygon:
                 self.points[point][i] += self.dir[i] * self.delta
 
     def update_decay_factor(self):
-        self.decay_factor -= 0.008
+        self.decay_factor -= 0.00008
 
     def update_speed(self):
         self.speed -= 0.04
@@ -79,4 +76,4 @@ class Polygon:
         self.update_position()
         self.update_speed()
         self.calculate_direction()
-        # self.update_decay_factor()
+        self.update_decay_factor()
