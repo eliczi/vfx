@@ -6,7 +6,7 @@ from pygame.math import Vector2
 
 class AttackReady:
     alpha = 255
-    color = (255, 255, 255, alpha)
+    color = (255,    255, 255, alpha)
 
     # do two lines
     def __init__(self, center, player):
@@ -61,7 +61,6 @@ class AttackReady:
         # 4
         x, y = Vector2(x3, y3) - self.perpendicular_straight * b
         self.points.append(Vector2([x, y]))
-
         self.points[1], self.points[2] = self.points[2], self.points[1]
         self.lines.append(self.points)
         self.points = []
@@ -69,10 +68,8 @@ class AttackReady:
     def update(self, dt):
         self.lines[0][0] += self.dir * dt * self.speed/6
         self.lines[0][2] -= self.dir * dt * self.speed/6
-
         self.lines[1][0] += self.dir2 * dt * self.speed/6
         self.lines[1][2] -= self.dir2 * dt * self.speed/6
-
         self.radius += dt * self.speed * 2
 
         if Vector2(self.lines[0][0] - self.lines[1][0]).length() > 20:

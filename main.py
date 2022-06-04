@@ -15,6 +15,9 @@ drawing_screen = pygame.Surface((world_size[0] / 4, world_size[1] / 4),
                                 pygame.SRCALPHA).convert_alpha()
 dest_surf = pygame.Surface((world_size[0], world_size[1]), pygame.SRCALPHA).convert_alpha()
 WHITE = (255, 255, 255)
+pygame.font.init()
+my_font = pygame.font.SysFont('Comic Sans MS', 30)
+text_surface = my_font.render('a - attack, r - atack ready, f - fire, s - smoke', False, (255, 255, 255))
 
 
 def resize_and_draw(surface, pixelated_surface, destination_surface):
@@ -24,35 +27,31 @@ def resize_and_draw(surface, pixelated_surface, destination_surface):
 
 clock = pygame.time.Clock()
 FPS = 60
-polygons = []
-circles = []
-lines = []
-smoke = []
-fires = []
+particles = []
 
 
 def hit(pos):
     line = Line(pos)
-    lines.append(line)
+    particles.append(line)
     for _ in range(20):
         polygon = Polygon(pos)
-        polygons.append(polygon)
+        particles.append(polygon)
 
 
 def smoke_effect(pos):
     for _ in range(40):
         smoke_particle = Smoke(pos)
-        smoke.append(smoke_particle)
+        particles.append(smoke_particle)
 
 
-def explode(pos):
+def atack_rdy(pos):
     line = AttackReady(pos, None)
-    lines.append(line)
+    particles.append(line)
 
 
 def fire(pos):
     for _ in range(20):
-        fires.append(Fire(pos))
+        particles.append(Fire(pos))
 
 
 def cooldown(timer, value):
@@ -62,7 +61,8 @@ def cooldown(timer, value):
 prev_time = time.time()
 time_now = 0
 x, y = 0, 0
-czas = 0
+effect = 'smoke'
+cd_time = 0 #cooldown
 while running:
     now = time.time()
     dt = now - prev_time
@@ -73,7 +73,7 @@ while running:
         if event.type == pygame.QUIT:
             pygame.quit()
     pressed = pygame.key.get_pressed()
-    effect = 'smoke'
+
     if pressed[pygame.K_ESCAPE]:
         running = False
     if pressed[pygame.K_s]:
@@ -82,37 +82,37 @@ while running:
         effect = 'attack'
     if pressed[pygame.K_r]:
         effect = 'attack_ready'
+    if pressed[pygame.K_f]:
+        effect = 'fire'
 
-    if pygame.mouse.get_pressed()[0] and cooldown(time_now, 0):
+    if pygame.mouse.get_pressed()[0] and cooldown(time_now, cd_time):
         time_now = pygame.time.get_ticks()
         pos = pygame.mouse.get_pos()
-        fire(pos)
+        if effect == 'fire':
+            fire(pos)
+            cd_time = 0
+        elif effect == 'smoke':
+            smoke_effect(pos)
+            cd_time = 50
+        elif effect == 'attack_ready':
+            atack_rdy(pos)
+            cd_time = 200
+        elif effect == 'attack':
+            hit(pos)
+            cd_time = 350
 
     drawing_screen.fill((0, 0, 0))
-    for s in fires:
-        s.update(dt)
-        s.draw(drawing_screen)
-        if not s.alive:
-            fires.remove(s)
+    for p in particles:
+        p.update(dt)
+        p.draw(drawing_screen)
+        if not p.alive:
+            particles.remove(p)
 
-    for s in smoke:
-        s.update(dt)
-        s.draw(drawing_screen)
-        if not s.alive:
-            smoke.remove(s)
-    for s in lines:
-        s.update(dt)
-        s.draw(drawing_screen)
-        if not s.alive:
-            lines.remove(s)
-    for s in polygons:
-        s.update(dt)
-        s.draw(drawing_screen)
-        if not s.alive:
-            polygons.remove(s)
+
 
     screen.fill('black')
     resize_and_draw(screen, drawing_screen, dest_surf)
+    screen.blit(text_surface, (0, 0))
     display.blit(screen, (0, 0))
     pygame.display.flip()
 
