@@ -96,7 +96,7 @@ while running:
             cd_time = 50
         elif effect == 'attack_ready':
             atack_rdy(pos)
-            cd_time = 200
+            cd_time = 500
         elif effect == 'attack':
             hit(pos)
             cd_time = 350
